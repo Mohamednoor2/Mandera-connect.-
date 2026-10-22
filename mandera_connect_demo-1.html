@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#123c32">
+<title>Mandera Connect — Local Marketplace</title>
+<style>
+:root{--green:#123c32;--mint:#dff3e8;--gold:#f2b84b;--ink:#17231f;--muted:#68766f;--paper:#f7f8f5;--line:#e4e9e4}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+header{background:var(--green);color:white;padding:22px 18px 25px;border-radius:0 0 25px 25px}
+.top{max-width:900px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.brand{font-weight:850;font-size:20px;letter-spacing:-.5px}.brand span{color:var(--gold)}
+.pill{font-size:12px;background:#ffffff20;padding:7px 10px;border-radius:99px}
+.hero{max-width:900px;margin:26px auto 0}.hero h1{font-size:clamp(27px,5vw,43px);line-height:1.08;letter-spacing:-1.2px;margin:0 0 10px;max-width:600px}.hero p{color:#d7e7df;margin:0 0 20px;max-width:520px}
+.search{display:flex;gap:8px;background:white;padding:6px;border-radius:14px;max-width:650px}.search input{border:0;outline:0;min-width:0;flex:1;padding:12px;color:var(--ink);font-size:15px}.search button{background:var(--gold);border:0;border-radius:10px;padding:0 15px;font-weight:750;color:#2c2515}
+main{max-width:900px;margin:22px auto;padding:0 16px 40px}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:23px}.stat{background:white;border:1px solid var(--line);border-radius:15px;padding:13px}.stat strong{display:block;font-size:19px}.stat small{color:var(--muted)}
+.sectionhead{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:22px 0 12px}.sectionhead h2{font-size:19px;margin:0}.sectionhead span{font-size:12px;color:var(--muted)}
+.categories{display:flex;gap:8px;overflow:auto;padding:2px 0 7px}.cat{white-space:nowrap;border:1px solid var(--line);background:white;padding:9px 13px;border-radius:99px;font-size:13px;cursor:pointer}.cat.active{background:var(--green);color:white;border-color:var(--green)}
+.listings{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px}.listing{background:white;border:1px solid var(--line);border-radius:17px;padding:16px;display:flex;flex-direction:column;min-height:190px}.listing .emoji{font-size:25px;background:var(--mint);width:48px;height:48px;border-radius:14px;display:grid;place-items:center;margin-bottom:12px}.listing h3{margin:0 0 5px;font-size:16px}.listing p{margin:0 0 10px;color:var(--muted);font-size:13px;line-height:1.45}.meta{font-size:12px;color:var(--muted);margin-top:auto;padding:7px 0 12px}.contact{border:0;background:var(--green);color:white;border-radius:10px;padding:10px;font-weight:700;cursor:pointer}
+.notice{background:#fff7e6;border:1px solid #f4dfb3;border-radius:13px;padding:13px;font-size:13px;line-height:1.5;color:#5c471b;margin:18px 0}
+.primary{background:var(--gold);color:#302512;border:0;border-radius:12px;padding:11px 15px;font-weight:800;cursor:pointer}
+.panel{background:white;border:1px solid var(--line);border-radius:17px;padding:17px;margin-top:22px}.panel h2{font-size:19px;margin:0 0 5px}.panel p{color:var(--muted);font-size:13px;margin:0 0 15px}
+form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}form input,form select,form textarea{width:100%;padding:12px;border:1px solid var(--line);border-radius:10px;font:inherit;font-size:14px;background:white}form textarea{grid-column:1/-1;min-height:75px;resize:vertical}form button{grid-column:1/-1}
+footer{text-align:center;color:var(--muted);font-size:12px;padding:0 15px 28px}
+.empty{grid-column:1/-1;text-align:center;padding:28px;color:var(--muted);background:white;border-radius:15px}
+@media(max-width:520px){.stats{gap:7px}.stat{padding:10px}.stat strong{font-size:17px}.stat small{font-size:11px}form{grid-template-columns:1fr}form textarea,form button{grid-column:auto}.pill{font-size:11px}}
+</style>
+</head>
+<body>
+<header>
+  <div class="top"><div class="brand">Mandera<span>Connect</span></div><div class="pill">LOCAL • SIMPLE • COMMUNITY</div></div>
+  <div class="hero">
+    <h1>Find what you need.<br>Support local business.</h1>
+    <p>A simple place to discover local services, sellers and opportunities around Mandera.</p>
+    <div class="search"><input id="search" placeholder="Search repairs, shops, services..." aria-label="Search listings"><button id="searchBtn">Search</button></div>
+  </div>
+</header>
+<main>
+  <div class="stats">
+    <div class="stat"><strong id="listingCount">6</strong><small>Sample listings</small></div>
+    <div class="stat"><strong>Free</strong><small>To browse</small></div>
+    <div class="stat"><strong>Local</strong><small>Community first</small></div>
+  </div>
+  <div class="sectionhead"><h2>Browse categories</h2><span>Choose a category</span></div>
+  <div class="categories" id="categories">
+    <button class="cat active" data-cat="All">All</button>
+    <button class="cat" data-cat="Repairs">🔧 Repairs</button>
+    <button class="cat" data-cat="Food">🍲 Food</button>
+    <button class="cat" data-cat="Retail">🛍️ Shops</button>
+    <button class="cat" data-cat="Education">📚 Education</button>
+    <button class="cat" data-cat="Services">🧰 Services</button>
+  </div>
+  <div class="sectionhead"><h2>Local listings</h2><span>Demo listings — replace before launch</span></div>
+  <div class="listings" id="listings"></div>
+  <div class="notice"><strong>Important:</strong> This is a working demo, not yet a public marketplace. Listings you add are saved only in this browser on this device. Other people will not see them until the app has an online database and is published.</div>
+  <section class="panel">
+    <h2>List a business or service</h2>
+    <p>Add a sample listing to test how the marketplace could work. No payment is collected.</p>
+    <form id="listingForm">
+      <input id="businessName" placeholder="Business / service name" required maxlength="60">
+      <select id="businessCategory" required>
+        <option value="">Choose category</option><option>Repairs</option><option>Food</option><option>Retail</option><option>Education</option><option>Services</option>
+      </select>
+      <input id="businessArea" placeholder="Area (e.g. town centre)" required maxlength="60">
+      <input id="businessPhone" placeholder="Phone / WhatsApp number" required maxlength="25">
+      <textarea id="businessDescription" placeholder="What do you offer? Add clear, accurate details." required maxlength="240"></textarea>
+      <button class="primary" type="submit">Add listing to this demo</button>
+    </form>
+  </section>
+</main>
+<footer>ManderaConnect concept • Built as a zero-cost prototype • Verify sellers before making payments.</footer>
+<script>
+const defaults=[
+ {name:"Phone Repair Service",cat:"Repairs",area:"Mandera — sample area",phone:"",desc:"Screen, charging and software troubleshooting. Demo listing.",emoji:"🔧"},
+ {name:"Home-cooked Meals",cat:"Food",area:"Mandera — sample area",phone:"",desc:"Meal orders and catering enquiries. Demo listing.",emoji:"🍲"},
+ {name:"Clothing & Essentials",cat:"Retail",area:"Mandera — sample area",phone:"",desc:"Everyday clothing and household items. Demo listing.",emoji:"🛍️"},
+ {name:"Private Tuition",cat:"Education",area:"Mandera — sample area",phone:"",desc:"Ask about subject support and available hours. Demo listing.",emoji:"📚"},
+ {name:"Graphic Design",cat:"Services",area:"Mandera — sample area",phone:"",desc:"Posters, invitations and simple business adverts. Demo listing.",emoji:"🎨"},
+ {name:"Electrical Services",cat:"Repairs",area:"Mandera — sample area",phone:"",desc:"Contact to discuss household electrical work. Demo listing.",emoji:"💡"}
+];
+let custom=[];try{custom=JSON.parse(localStorage.getItem("mc_custom")||"[]")}catch(e){}
+let active="All";
+const emojiMap={Repairs:"🔧",Food:"🍲",Retail:"🛍️",Education:"📚",Services:"🧰"};
+function all(){return [...custom,...defaults]}
+function safe(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function render(){
+ const q=document.getElementById("search").value.trim().toLowerCase();
+ const data=all().filter(x=>(active==="All"||x.cat===active)&&[x.name,x.cat,x.area,x.desc].join(" ").toLowerCase().includes(q));
+ document.getElementById("listingCount").textContent=custom.length+defaults.length;
+ document.getElementById("listings").innerHTML=data.length?data.map((x,i)=>`<article class="listing"><div class="emoji">${x.emoji||emojiMap[x.cat]||"📍"}</div><h3>${safe(x.name)}</h3><p>${safe(x.desc)}</p><div class="meta">📍 ${safe(x.area)} · ${safe(x.cat)}${x.demo?" · Sample":""}</div><button class="contact" data-phone="${safe(x.phone||"")}" data-name="${safe(x.name)}">Contact business</button></article>`).join(""):`<div class="empty">No matching listings. Try another search or category.</div>`;
+ document.querySelectorAll(".contact").forEach(b=>b.addEventListener("click",()=>{const p=b.dataset.phone.replace(/[^\d+]/g,"");if(p){const digits=p.replace(/\D/g,"");if(digits.length>=7)window.open("https://wa.me/"+digits+"?text="+encodeURIComponent("Hello, I found your listing on ManderaConnect and would like to enquire about "+b.dataset.name+"."),"_blank");else alert("This demo listing has no valid contact number yet.")}else alert("This is a sample listing. Add a real business phone number before launching the app.")}));
+}
+document.getElementById("categories").addEventListener("click",e=>{const b=e.target.closest("button[data-cat]");if(!b)return;active=b.dataset.cat;document.querySelectorAll(".cat").forEach(x=>x.classList.toggle("active",x===b));render()});
+document.getElementById("searchBtn").addEventListener("click",render);
+document.getElementById("search").addEventListener("input",render);
+document.getElementById("listingForm").addEventListener("submit",e=>{e.preventDefault();const x={name:document.getElementById("businessName").value.trim(),cat:document.getElementById("businessCategory").value,area:document.getElementById("businessArea").value.trim(),phone:document.getElementById("businessPhone").value.trim(),desc:document.getElementById("businessDescription").value.trim(),emoji:emojiMap[document.getElementById("businessCategory").value]||"📍"};custom.unshift(x);try{localStorage.setItem("mc_custom",JSON.stringify(custom))}catch(err){}e.target.reset();active="All";document.querySelectorAll(".cat").forEach(x=>x.classList.toggle("active",x.dataset.cat==="All"));render();document.getElementById("listings").scrollIntoView({behavior:"smooth"});alert("Listing added to this device's demo. It is not public yet.")});
+render();
+</script>
+</body>
+</html>

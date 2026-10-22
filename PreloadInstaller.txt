@@ -1,0 +1,13 @@
+08-05 09:18:46.747 : 
+08-05 09:18:46.747 : mIsUpgrade : true, mIsFirstBoot : false, fingerState : 3
+08-05 09:18:46.751 : setPrefFingerprint [samsung/a02qnnxx/a02q:12/SP1A.210812.016/A025FXXU4CVJ1:user/release-keys] : 2
+08-05 09:18:46.751 : persist.sys.storage_preload : 2
+08-05 09:18:46.757 : write-loadInstallHistory() : null
+08-05 09:18:46.760 : fota - mount hidden area using persist values.
+08-05 09:18:47.787 : omcEtcPath : /prism/etc/carriers/single/AFR/uninstall_preloadpkg.lst
+08-05 09:18:47.788 : cscCode : AFR
+08-05 09:18:47.790 : [CONFIRMED INSTALLING LIST]
+08-05 09:18:47.790 : apk count is 0. call setDisabled()
+08-05 09:18:47.801 : write-Set package state to disabled
+08-05 09:18:47.814 : setPrefFingerprint [samsung/a02qnnxx/a02q:12/SP1A.210812.016/A025FXXU4CVJ1:user/release-keys] : 3
+08-05 09:18:47.816 : write-setDisabled() is FINISHED

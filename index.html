@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#0b6b53">
+  <meta name="description" content="Discover local shops, services, jobs and items in Mandera.">
+  <title>ManderaConnect — Local Marketplace</title>
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" href="./icons/icon-192.png">
+  <link rel="apple-touch-icon" href="./icons/icon-192.png">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="ManderaConnect home">
+      <span class="brand-mark">M</span>
+      <span><strong>ManderaConnect</strong><small>Mandera's local marketplace</small></span>
+    </a>
+    <button id="installBtn" class="btn btn-light hidden" type="button">Install app</button>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-copy">
+        <span class="eyebrow">BUY · SELL · CONNECT</span>
+        <h1>Good things happen <em>locally.</em></h1>
+        <p>Find products, trusted services and opportunities around Mandera.</p>
+        <a class="btn btn-white" href="#browse">Explore listings <span aria-hidden="true">↓</span></a>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <div class="sun"></div><div class="hill hill-back"></div><div class="hill hill-front"></div>
+        <div class="market-bag">✦</div>
+      </div>
+    </section>
+
+    <section class="search-panel" aria-label="Search listings">
+      <label class="search-box"><span>⌕</span><input id="searchInput" type="search" placeholder="Search phones, tailoring, jobs…" autocomplete="off"></label>
+      <button id="searchBtn" class="btn btn-primary">Search</button>
+    </section>
+
+    <section id="browse" class="section">
+      <div class="section-heading">
+        <div><span class="eyebrow dark">DISCOVER</span><h2>Explore categories</h2></div>
+      </div>
+      <div class="categories" id="categories">
+        <button class="category active" data-category="All"><span>✦</span>All</button>
+        <button class="category" data-category="Shops"><span>🛍️</span>Shops</button>
+        <button class="category" data-category="Services"><span>🧰</span>Services</button>
+        <button class="category" data-category="Jobs"><span>💼</span>Jobs</button>
+        <button class="category" data-category="Property"><span>🏠</span>Property</button>
+        <button class="category" data-category="Food"><span>🍲</span>Food</button>
+        <button class="category" data-category="Other"><span>📦</span>Other</button>
+      </div>
+    </section>
+
+    <section class="section listings-section">
+      <div class="section-heading listings-head">
+        <div><span class="eyebrow dark">AROUND YOU</span><h2 id="listingTitle">Latest listings</h2></div>
+        <span id="connectionStatus" class="status"><i></i> Local preview</span>
+      </div>
+      <div id="notice" class="notice hidden" role="status"></div>
+      <div id="listingGrid" class="listing-grid" aria-live="polite"></div>
+      <div id="emptyState" class="empty hidden"><span>⌕</span><h3>No listings found</h3><p>Try another search or be the first to post in this category.</p></div>
+    </section>
+
+    <section class="post-banner">
+      <div><span class="eyebrow">YOUR BUSINESS DESERVES TO BE SEEN</span><h2>Have something to offer?</h2><p>Post your product, service or opportunity for people in Mandera to discover.</p></div>
+      <button class="btn btn-white" id="openPostBtn">＋ Post a listing</button>
+    </section>
+
+    <section class="section how-section">
+      <span class="eyebrow dark">SIMPLE AND LOCAL</span><h2>How it works</h2>
+      <div class="how-grid">
+        <article><span class="step">01</span><h3>Discover</h3><p>Search local products, services and opportunities.</p></article>
+        <article><span class="step">02</span><h3>Connect</h3><p>Contact the seller directly by WhatsApp or phone.</p></article>
+        <article><span class="step">03</span><h3>Grow locally</h3><p>Help local businesses reach more customers.</p></article>
+      </div>
+    </section>
+  </main>
+
+  <footer><div class="footer-brand"><span class="brand-mark">M</span><strong>ManderaConnect</strong></div><p>Built for local discovery in Mandera.</p><small>Use good judgement when meeting sellers. Verify items and prices before paying.</small></footer>
+
+  <div id="postModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-backdrop" data-close="true"></div>
+    <div class="modal-card">
+      <button class="modal-close" id="closePostBtn" aria-label="Close form">×</button>
+      <span class="eyebrow dark">JOIN THE MARKETPLACE</span><h2 id="modalTitle">Post a listing</h2>
+      <p class="modal-intro">Share clear, accurate details. Your phone number will be visible to people viewing the listing.</p>
+      <form id="listingForm">
+        <label>Listing title<input name="title" maxlength="70" placeholder="e.g. Men's shoes for sale" required></label>
+        <div class="form-row">
+          <label>Category<select name="category" required><option value="Shops">Shops / Products</option><option value="Services">Services</option><option value="Jobs">Jobs</option><option value="Property">Property</option><option value="Food">Food</option><option value="Other">Other</option></select></label>
+          <label>Price (optional)<input name="price" maxlength="30" placeholder="e.g. KSh 1,500"></label>
+        </div>
+        <label>Description<textarea name="description" rows="3" maxlength="500" placeholder="Describe the item, service or opportunity…" required></textarea></label>
+        <div class="form-row">
+          <label>Your name / business<input name="seller" maxlength="60" placeholder="Name or business" required></label>
+          <label>Phone / WhatsApp<input name="phone" inputmode="tel" maxlength="20" placeholder="e.g. 2547…" required></label>
+        </div>
+        <label>Area in Mandera<input name="area" maxlength="60" placeholder="e.g. Town centre, Bula Tawakal"></label>
+        <p class="form-hint">Never post passwords, ID numbers, or sensitive personal information.</p>
+        <button class="btn btn-primary btn-full" type="submit">Publish listing</button>
+        <p id="formMessage" class="form-message" role="status"></p>
+      </form>
+    </div>
+  </div>
+
+  <div id="detailModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="detailTitle">
+    <div class="modal-backdrop" data-detail-close="true"></div>
+    <div class="modal-card detail-card"><button class="modal-close" id="closeDetailBtn" aria-label="Close details">×</button><div id="detailContent"></div></div>
+  </div>
+
+  <script src="./config.js"></script>
+  <script src="./app.js"></script>
+</body>
+</html>
